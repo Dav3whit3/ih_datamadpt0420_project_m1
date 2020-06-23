@@ -24,3 +24,4 @@ if __name__ == '__main__':
     title = 'Top 10 Manufacturers by Fuel Efficiency ' + str(year)
     arguments = argument_parser()
     main(arguments)
+
