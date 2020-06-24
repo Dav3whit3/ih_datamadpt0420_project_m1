@@ -23,6 +23,7 @@ def main(some_args):
         a += 1
         df.to_csv(f'/home/david/Downloads/prueba/{a}.csv')
 ### Prueba
+
     print("...")
     print("...")
     print("data analysis process finished!")
@@ -30,6 +31,8 @@ def main(some_args):
 if __name__ == '__main__':
     arguments = argument_parser()
     main(arguments)
+
+
 
 """
 import argparse
