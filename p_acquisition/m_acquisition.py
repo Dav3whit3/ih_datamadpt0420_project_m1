@@ -36,7 +36,21 @@ def sql_query_to_df(table, data_base):
     return select_all_query
 
 
+def get_json(url, json_acum=[], calls=0):
+    print(f'Getting info from {url}')
+    response = requests.get(url)
+    json = response.json()
+    json_acum.append(json[:-1])
 
+    link = json[-1]['links'][2]['href']
 
+    next_link = f'{root}{link}'
+
+    if calls <= 5:
+        get_json(next_link, json_acum, calls + 1)
+
+    jobs_df = pd.DataFrame(json_acum[0])
+
+    return jobs_df
 
 
