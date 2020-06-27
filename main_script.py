@@ -5,11 +5,13 @@ from p_wrangling import m_wrangling as mwr
 from p_analysis import m_analysis as man
 from p_reporting import m_reporting as mre
 
+
 def argument_parser():
     parser = argparse.ArgumentParser(description = 'Set chart type')
     parser.add_argument("-dp", "--db_path", help="Introduce a path to a data base", required=True)
     args = parser.parse_args()
     return args
+
 
 def main(some_args):
     print("Starting data analysis process!")
@@ -27,6 +29,7 @@ def main(some_args):
     print("...")
     print("...")
     print("data analysis process finished!")
+
 
 if __name__ == '__main__':
     arguments = argument_parser()
