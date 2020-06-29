@@ -1,6 +1,8 @@
 import pandas as pd
 from sqlalchemy import create_engine
 import requests
+import re
+from bs4 import BeautifulSoup
 
 # Functions in visual order
 
@@ -63,6 +65,33 @@ def get_job_titles(url, json_acum=[]):
     for result in json_acum:
         jobs_df.extend(result)
 
-    return pd.DataFrame(jobs_df)
+    jobs_df = pd.DataFrame(jobs_df)
+    jobs_df.rename(columns={'uuid': 'normalized_job_code'}, inplace=True)
+    return jobs_df
 
 
+def get_country_names():
+    url = 'https://www.iban.com/country-codes'
+    html = requests.get(url).content
+    soup = BeautifulSoup(html, 'lxml')
+    items = soup.find_all('tr')
+
+    a = str(items).split('<td>')
+
+    paises = []
+    for elem in a[1:]:
+        match = re.search('(\w+\s\w+)', elem)
+        if match:
+            paises.append(re.findall('(\w+\s\w+)', elem))
+        else:
+            paises.append(re.findall('\w+', elem))
+
+    countries = paises[0::4]
+    codes = paises[1::4]
+
+    country_codes = []
+    for index, elem in enumerate(countries):
+        country_codes.append([elem[0], codes[index][0]])
+    country_codes = pd.DataFrame(country_codes, columns=['Country', 'country_code'])
+
+    return country_codes
