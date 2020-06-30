@@ -24,13 +24,17 @@ def tables_to_df(arguments):  # Exec number 1
 
     for table in table_names:
         sql_query = sql_query_to_df(table, data_base)
-        print(f"Converting {table} table into data frame")
+        print(f"Converting '{table}' table into data frame")
         df_list.append(sql_query)
 
     db_df = pd.DataFrame(df_list[0])
     for df in df_list[1:]:
         db_df = db_df.merge(df, left_on='uuid', right_on='uuid')
-
+    print("...")
+    print("...")
+    print("Merging all tables...")
+    print("...")
+    print("...")
     return db_df
 
 
@@ -48,25 +52,36 @@ def sql_query_to_df(table, data_base):
 
 
 def get_job_titles(url, json_acum=[]):
-    print(f'Getting info from {url}')
+    print("...")
+    print("...")
+    print(f'Getting job titles from API {url}')
     response = requests.get(url)
     json = response.json()
     json_acum.append(json[:-1])
 
     root = 'http://api.dataatwork.org/v1'
-    link = json[-1]['links'][2]['href']
 
-    next_link = f'{root}{link}'
+    for elem in json[-1]['links']:
+        if elem['rel'] == 'next':
+            link = elem['href']
+            next_link = f'{root}{link}'
+            get_job_titles(next_link, json_acum)
+    print("...")
+    print("...")
 
-    if next_link:
-        get_job_titles(next_link, json_acum)
+    return json_acum
+
+
+def job_titles_to_DataFrame(url):
+    json = get_job_titles(url)
 
     jobs_df = []
-    for result in json_acum:
+    for result in json:
         jobs_df.extend(result)
 
     jobs_df = pd.DataFrame(jobs_df)
     jobs_df.rename(columns={'uuid': 'normalized_job_code'}, inplace=True)
+
     return jobs_df
 
 
