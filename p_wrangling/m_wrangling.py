@@ -3,7 +3,13 @@ import requests
 import re
 from bs4 import BeautifulSoup
 from p_acquisition import m_acquisition as mac
+import plotly.express as px  # (version 4.7.0)
+import plotly.graph_objects as go
 
+import dash  # (version 1.12.0) pip install dash
+import dash_core_components as dcc
+import dash_html_components as html
+from dash.dependencies import Input, Output
 
 def get_job_titles(url, json_acum=[]):
     print(f'Getting job titles from API {url}')
@@ -86,3 +92,20 @@ def merge_data(arguments, url):
     # db_df.merge()
 
     return main_df2
+
+
+def clean_data(arguments, url):
+    main_df = merge_data(arguments, url)
+    main_df.columns = ['Education_level', 'Full_time_job', 'Living area',
+                       'Age', 'Gender', 'Children', 'Age_group',
+                       'Question_basicincome_awareness','Question_basicincome_vote',
+                       'Question_basicincome_effect', 'Question_basicincome_argumentsfor',
+                       'Question_basicincome_argumentsagainst', 'Job_title', 'Country']
+
+    percentage = [100 / len(main_df) for e in range(len(main_df))]
+    quantity = [1 for e in range(len(sub_df))]
+
+    main_df['Quantity'] = quantity
+    main_df['Percentage'] = percentage
+
+    sub_df = main_df[['Age_group', 'Job_title', 'Country']]
