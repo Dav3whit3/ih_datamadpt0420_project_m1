@@ -80,3 +80,8 @@ def dash_report(df):
     return app.run_server(debug=True, use_reloader=False)
 
 
+def country_filter(pais, csv):
+    df = csv[csv['Country'] == pais]
+
+    return df
+
