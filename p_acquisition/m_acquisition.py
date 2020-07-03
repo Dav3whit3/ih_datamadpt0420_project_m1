@@ -9,8 +9,6 @@ def tables_to_df(arguments):  # Exec number 1
     data_base = db_connection(db_path)
     table_names = data_base.table_names()
     print(f"Obtaining tables from data base provided")
-    print("...")
-    print("...")
 
     df_list = []
 
@@ -22,18 +20,15 @@ def tables_to_df(arguments):  # Exec number 1
     db_df = pd.DataFrame(df_list[0])
     for df in df_list[1:]:
         db_df = db_df.merge(df, left_on='uuid', right_on='uuid')
-    print("...")
-    print("...")
+
     print("Merging all DataFrames...")
-    print("...")
-    print("...")
+
     return db_df
 
 
 def db_connection(db_path):
     print(f'Connecting to data base {db_path}')
-    print("...")
-    print("...")
+
     connection = create_engine(f'sqlite:////{db_path}')
     return connection
 

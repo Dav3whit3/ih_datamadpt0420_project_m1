@@ -3,13 +3,7 @@ import requests
 import re
 from bs4 import BeautifulSoup
 from p_acquisition import m_acquisition as mac
-import plotly.express as px  # (version 4.7.0)
-import plotly.graph_objects as go
 
-import dash  # (version 1.12.0) pip install dash
-import dash_core_components as dcc
-import dash_html_components as html
-from dash.dependencies import Input, Output
 
 def get_job_titles(url, json_acum=[]):
     print(f'Getting job titles from API {url}')
@@ -28,7 +22,8 @@ def get_job_titles(url, json_acum=[]):
     return json_acum
 
 
-def job_titles_to_DataFrame(url):
+def job_titles_to_DataFrame():
+    url = 'http://api.dataatwork.org/v1/jobs?limit=500'
     json = get_job_titles(url)
 
     jobs_df = []
@@ -71,34 +66,35 @@ def get_country_names():
     return country_codes
 
 
-def merge_data(arguments, url):
-    db_tables = mac.tables_to_df(arguments)
-    job_titles = job_titles_to_DataFrame(url)
+def merge_data(list_of_df):
+    db_tables = list_of_df
+    job_titles = job_titles_to_DataFrame()
     country_names = get_country_names()
 
     print("Creating final DataFrame")
     main_df = pd.merge(db_tables, job_titles, on='normalized_job_code', how='left')
-    print("...")
-    print("...")
+
     print("Adding Job titles to final DataFrame")
-    print("...")
-    print("...")
+
     main_df2 = pd.merge(main_df, country_names, on='country_code', how='left')
-    print("...")
-    print("...")
+
     print("Adding country names to final DataFrame")
     print("...")
     print("...")
-    # db_df.merge()
-
     return main_df2
 
 
-def clean_data(arguments, url):
-    main_df = merge_data(arguments, url)
+def clean_data(list_of_df):
+    main_df = merge_data(list_of_df)
+    main_df = main_df[[
+        'dem_education_level', 'dem_full_time_job', 'rural', 'age', 'gender', 'dem_has_children', 'age_group',
+        'question_bbi_2016wave4_basicincome_awareness', 'question_bbi_2016wave4_basicincome_vote',
+        'question_bbi_2016wave4_basicincome_effect', 'question_bbi_2016wave4_basicincome_argumentsfor',
+        'question_bbi_2016wave4_basicincome_argumentsagainst', 'normalized_job_title', 'Country']]
+
     main_df.columns = ['Education_level', 'Full_time_job', 'Living area',
                        'Age', 'Gender', 'Children', 'Age_group',
-                       'Question_basicincome_awareness','Question_basicincome_vote',
+                       'Question_basicincome_awareness', 'Question_basicincome_vote',
                        'Question_basicincome_effect', 'Question_basicincome_argumentsfor',
                        'Question_basicincome_argumentsagainst', 'Job_title', 'Country']
 
@@ -107,7 +103,8 @@ def clean_data(arguments, url):
 
     main_df['Quantity'] = quantity
     main_df['Percentage'] = percentage
-
+    main_df[['Percentage']] = main_df[['Percentage']].applymap('{:,.2f}'.format)
+    main_df['Percentage'] = main_df['Percentage'].astype(float)
     sub_df = main_df[['Age_group', 'Job_title', 'Country', 'Quantity', 'Percentage']]
 
     return sub_df
