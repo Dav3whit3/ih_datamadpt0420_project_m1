@@ -4,7 +4,7 @@ from p_acquisition import m_acquisition
 from p_wrangling import m_wrangling as mwr
 from p_analysis import m_analysis as man
 from p_reporting import m_reporting as mre
-
+from p_wrangling import m_wrangling as mwr
 
 def argument_parser():
     parser = argparse.ArgumentParser(description = 'Set chart type')
@@ -18,17 +18,9 @@ def main(some_args):
     print("...")
     print("...")
     list_of_df = m_acquisition.tables_to_df(arguments.db_path)
+    clean = mwr.
+    mre.dash_report()
 
-### Prueba
-    a = 0
-    for df in list_of_df:
-        a += 1
-        df.to_csv(f'/home/david/Downloads/prueba/{a}.csv')
-### Prueba
-
-    print("...")
-    print("...")
-    print("data analysis process finished!")
 
 
 if __name__ == '__main__':

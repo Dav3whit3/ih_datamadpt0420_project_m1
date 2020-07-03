@@ -103,9 +103,11 @@ def clean_data(arguments, url):
                        'Question_basicincome_argumentsagainst', 'Job_title', 'Country']
 
     percentage = [100 / len(main_df) for e in range(len(main_df))]
-    quantity = [1 for e in range(len(sub_df))]
+    quantity = [1 for e in range(len(main_df))]
 
     main_df['Quantity'] = quantity
     main_df['Percentage'] = percentage
 
-    sub_df = main_df[['Age_group', 'Job_title', 'Country']]
+    sub_df = main_df[['Age_group', 'Job_title', 'Country', 'Quantity', 'Percentage']]
+
+    return sub_df
