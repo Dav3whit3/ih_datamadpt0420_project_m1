@@ -5,5 +5,5 @@ import pandas as pd
 
 def analyze(df):
     grouped = df.groupby(['Country', 'Age_group', 'Job_title']).sum().reset_index()
-    results = grouped.sort_values('Quantity', ascending=False)
+    results = grouped.sort_values('Quantity', ascending=False).head(10)
     return results

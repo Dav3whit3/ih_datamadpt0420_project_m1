@@ -1,5 +1,5 @@
 import pandas as pd
-import plotly.express as px  # (version 4.7.0)
+#import plotly.express as px  # (version 4.7.0)
 import plotly.graph_objects as go
 
 import dash  # (version 1.12.0) pip install dash
@@ -8,11 +8,11 @@ import dash_html_components as html
 from dash.dependencies import Input, Output
 from p_analysis import m_analysis as man
 
+
 # reporting functions
 def dash_report(df):
     df = man.analyze(df)
     app = dash.Dash(__name__)
-
 
     app.layout = html.Div([
 
@@ -24,8 +24,9 @@ def dash_report(df):
             options=[
                 {'label': elem, 'value': elem} for elem in df['Job_title'].unique()
             ],
-            value='database engineer'
+            value='geographic information systems data administrator gis data administrator'
         ),
+        html.Br(),
 
         html.Label('Country'),
         dcc.Dropdown(
@@ -35,6 +36,7 @@ def dash_report(df):
             ],
             value='Spain'
         ),
+        html.Br(),
 
         html.Label('Age Group'),
         dcc.Dropdown(
@@ -42,7 +44,7 @@ def dash_report(df):
             options=[
                 {'label': elem, 'value': elem} for elem in df['Age_group'].unique()
             ],
-            value='Juvenile',
+            value='14_25',
         ),
 
         dcc.Graph(id='my_table', figure={})
@@ -72,6 +74,7 @@ def dash_report(df):
                        ))
         ])
         fig.update_layout()
+
         return fig
 
     return app.run_server(debug=True, use_reloader=False)
