@@ -4,6 +4,7 @@ from p_acquisition import m_acquisition
 from p_analysis import m_analysis as man
 from p_reporting import m_reporting as mre
 from p_wrangling import m_wrangling as mwr
+import webbrowser
 
 
 def argument_parser():
@@ -22,6 +23,7 @@ def main(some_args):
     clean = mwr.clean_data(list_of_df)
     csv = man.analyze(clean)
     mre.export(csv, some_args.ruta)
+    webbrowser.open_new_tab('http://127.0.0.1:8050/')
     mre.dash_report(clean)
 
     print("Process finished!")

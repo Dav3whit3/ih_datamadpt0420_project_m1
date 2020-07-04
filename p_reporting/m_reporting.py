@@ -89,11 +89,13 @@ def export(csv, args):
         opcion = input("Wrong answer my guy! Pick y or n")
     if opcion == "y":
         pais = input("Ok then! Which country?")
+        print("...")
         if pais not in country_list:
             pais = input(f"Please pick a country from this list: {country_list}")
             print("...")
             result = man.country_filter(pais, result)
-            print(f"Okay! Your DataFrame will be filtered by {pais}")
+            print(f"Okay! Your final DataFrame will be filtered by {pais}")
+            print("...")
 
     print(f"Your final DataFrame has been saved at {args} as {pais}.csv")
     print("...")
