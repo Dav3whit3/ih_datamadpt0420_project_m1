@@ -81,7 +81,7 @@ def dash_report(df):
 
 
 def country_filter(pais, csv):
-    df = csv[csv['Country'] == pais]
+    df_filtrado = csv[csv['Country'] == pais]
 
-    return df
+    return df_filtrado
 

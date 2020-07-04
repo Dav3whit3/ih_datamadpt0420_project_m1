@@ -21,18 +21,19 @@ def main(some_args):
     list_of_df = m_acquisition.tables_to_df(arguments.db_path)
     clean = mwr.clean_data(list_of_df)
 
-    mre.dash_report(clean)
     csv = man.analyze(clean)
 
-    opcion = input("quieres un pais (y/n)")
+    opcion = input("Do you want to filter a specific country in the final DataFrame? (y/n)")
     while opcion != "y" and opcion != "n":
-        opcion = input("quieres un pais (y/n)")
+        opcion = input("Wrong answer my guy! Pick any y or n)")
     if opcion == "y":
-        pais = input("que pais? ")
+        pais = input("Ok then! Which country?")
         csv = mre.country_filter(pais, csv)
+        print(f"Okay! Your DataFrame will be filtered by {pais}")
 
-    csv.to_csv('/home/david/Downloads/resultado.csv')
+    csv.to_csv(arguments.ruta)
 
+    mre.dash_report(clean)
     print("Process finished!")
 
 
