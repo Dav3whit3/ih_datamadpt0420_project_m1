@@ -1,5 +1,4 @@
 import pandas as pd
-#import plotly.express as px  # (version 4.7.0)
 import plotly.graph_objects as go
 
 import dash  # (version 1.12.0) pip install dash
@@ -80,8 +79,22 @@ def dash_report(df):
     return app.run_server(debug=True, use_reloader=False)
 
 
-def country_filter(pais, csv):
-    df_filtrado = csv[csv['Country'] == pais]
+def export(csv, args):
+    result = csv
+    pais = "todos"
+    opcion = input("Do you want to filter a specific country in the final DataFrame? (y/n)")
+    print("...")
+    while opcion != "y" and opcion != "n":
+        opcion = input("Wrong answer my guy! Pick y or n")
+    if opcion == "y":
+        pais = input("Ok then! Which country?")
+        print("...")
+        result = man.country_filter(pais, result)
+        print(f"Okay! Your DataFrame will be filtered by {pais}")
 
-    return df_filtrado
+    print(f"Your final DataFrame has been saved at {args} as {pais}.csv")
+    print("...")
+
+    return result.to_csv(f'{args}{pais}.csv')
+
 
