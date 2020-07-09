@@ -72,31 +72,32 @@ def merge_data(list_of_df):
     country_names = get_country_names()
 
     print("Creating final DataFrame")
-    main_df = pd.merge(db_tables, job_titles, on='normalized_job_code', how='left')
+    db_job_df = pd.merge(db_tables, job_titles, on='normalized_job_code', how='left')
 
     print("Adding Job titles to final DataFrame")
 
-    main_df2 = pd.merge(main_df, country_names, on='country_code', how='left')
+    main_df = pd.merge(db_job_df, country_names, on='country_code', how='left')
 
     print("Adding country names to final DataFrame")
     print("...")
     print("...")
-    return main_df2
-
-
-def clean_data(list_of_df):
-    main_df = merge_data(list_of_df)
     main_df = main_df[[
         'dem_education_level', 'dem_full_time_job', 'rural', 'age', 'gender', 'dem_has_children', 'age_group',
         'question_bbi_2016wave4_basicincome_awareness', 'question_bbi_2016wave4_basicincome_vote',
         'question_bbi_2016wave4_basicincome_effect', 'question_bbi_2016wave4_basicincome_argumentsfor',
-        'question_bbi_2016wave4_basicincome_argumentsagainst', 'normalized_job_title', 'Country']]
+        'question_bbi_2016wave4_basicincome_argumentsagainst', 'normalized_job_title', 'Country', 'country_code']]
 
     main_df.columns = ['Education_level', 'Full_time_job', 'Living area',
                        'Age', 'Gender', 'Children', 'Age_group',
                        'Question_basicincome_awareness', 'Question_basicincome_vote',
                        'Question_basicincome_effect', 'Question_basicincome_argumentsfor',
-                       'Question_basicincome_argumentsagainst', 'Job_title', 'Country']
+                       'Question_basicincome_argumentsagainst', 'Job_title', 'Country', 'Country_code']
+    return main_df.to_csv('/home/david/Documents/ih_datamadpt0420_project_m1/data/processed/main_df.csv')
+
+
+def clean_data():
+    # merge_data(df)
+    main_df = pd.read_csv('/home/david/Documents/ih_datamadpt0420_project_m1/data/processed/main_df.csv')
 
     percentage = [100 / len(main_df) for e in range(len(main_df))]
     quantity = [1 for e in range(len(main_df))]
