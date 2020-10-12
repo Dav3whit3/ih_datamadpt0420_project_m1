@@ -10,12 +10,6 @@ Bearing that in mind, your job is to:
 ![Image](images/app.png)
 ---
 
-## **Start writing ASAP:**
-*Last but not least, by writing your README soon you give yourself some pretty significant advantages. Most importantly, you’re giving yourself a chance to think through the project without the overhead of having to change code every time you change your mind about how something should be organized or what should be included.*
-
-
-## **Suggested Structure:**
-
 ### :raising_hand: **Name** 
 Self-explanatory names are best. If the name sounds too vague or unrelated, it may be a signal to move on. It also must be catchy. Images, Logo, Gif or some color is strongly recommended.
 
@@ -39,4 +33,4 @@ Parameters, return values, known issues, thrown errors.
 Next steps, features planned, known bugs (shortlist).
 
 ### :love_letter: **Contact info**
-Getting help, getting involved, hire me please.
+![Link] davidblancoferrandez@gmail.com
