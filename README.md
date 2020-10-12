@@ -33,4 +33,4 @@ Parameters, return values, known issues, thrown errors.
 Next steps, features planned, known bugs (shortlist).
 
 ### :love_letter: **Contact info**
-![Link] davidblancoferrandez@gmail.com
+davidblancoferrandez@gmail.com
