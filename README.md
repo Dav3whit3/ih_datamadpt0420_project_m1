@@ -1,36 +1,24 @@
-# Data Project README file
+# IH Data Analytics 0420 Project M1
 
-The README file describes the essence of the project playing the most important role. Most visitors will simply scroll down about twice on the README and leave if they are not interested. So, the README file should provide the reason **why** to checkout your project!!!). 
-Bearing that in mind, your job is to: 
-- Tell them what it is (with context).
-- Show them what it looks like in action.
-- Show them how they use it.
-- Tell them any other relevant details
+In this project we are challenged to build a data pipeline using multiple techonologies to extract information of a basic-income poll made in Europe. My end product is presented as a dashboard built in Python Dash as looks below.
 
 ![Image](images/app.png)
 ---
 
-### :raising_hand: **Name** 
-Self-explanatory names are best. If the name sounds too vague or unrelated, it may be a signal to move on. It also must be catchy. Images, Logo, Gif or some color is strongly recommended.
-
 ### :baby: **Status**
-Alpha, Beta, 1.1, Ironhack Data Analytics Final Project, etc... It's OK to write a sentence, too. The goal is to let interested people know where this project is at.
+v 0.2. API data extraction refactored into local csv.
 
 ### :running: **One-liner**
-Having a one-liner that describes the pipeline/api/app is useful for getting an idea of what your code does in slightly greater detail. 
+This data pipeline builds a dashboard showing a table of information with filter components and automates the export of a csv of the selected data. The information is extracted from Swagger API dataatwork and a provided database.
 
 ### :computer: **Technology stack**
-Python, Pandas, Scipy, Scikit-learn, etc. Indicate the technological nature of the software, including primary programming language(s), main libraries and whether the software is intended as standalone or as a module in a framework or other ecosystem.
-
+Python, argparse, Pandas, SQLalchemy, Dash, Requests, BeatufulSoup, Plotly.
 
 ### :wrench: **Configuration**
-Requeriments, prerequisites, dependencies, installation instructions.
+Just provide a -r route to where you want the selected data file be stored.
 
 ### :see_no_evil: **Usage**
-Parameters, return values, known issues, thrown errors.
-
-### :shit: **ToDo**
-Next steps, features planned, known bugs (shortlist).
+Use the provided filter components to visualize descriptive information of the poll dataset.
 
 ### :love_letter: **Contact info**
 davidblancoferrandez@gmail.com
