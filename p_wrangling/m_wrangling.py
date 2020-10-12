@@ -97,7 +97,7 @@ def merge_data(list_of_df):
 
 def clean_data():
     # merge_data(df)
-    main_df = pd.read_csv('/home/david/Documents/ih_datamadpt0420_project_m1/data/processed/main_df.csv')
+    main_df = pd.read_csv('/home/david/Documents/learning_repositories/ih_datamadpt0420_project_m1/data/processed/main_df.csv')
 
     percentage = [100 / len(main_df) for e in range(len(main_df))]
     quantity = [1 for e in range(len(main_df))]
